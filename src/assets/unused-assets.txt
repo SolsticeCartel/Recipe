@@ -1,0 +1,3 @@
+- Unused images
+- Unused icons
+- Default logos/favicons not being used 

@@ -1,0 +1,2 @@
+- Any template/example pages not being used
+- Test pages 
