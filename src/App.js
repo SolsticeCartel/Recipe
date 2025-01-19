@@ -12,6 +12,7 @@ import { RecipeProvider } from './context/RecipeContext';
 import { useState } from 'react';
 import { NotificationProvider } from './context/NotificationContext';
 import EditRecipe from './pages/EditRecipe';
+import NotFound from './pages/NotFound';
 
 function App() {
   const [error, setError] = useState(null);
@@ -66,6 +67,7 @@ function App() {
                     <EditRecipe />
                   </ProtectedRoute>
                 } />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </Router>

@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="bg-white shadow-lg">
@@ -13,10 +14,10 @@ function Navbar() {
           <div className="flex-shrink-0">
             <Link 
               to="/" 
-              className="text-2xl font-['Montserrat'] font-bold text-gray-800 tracking-wider hover:text-blue-600 transition-colors duration-200"
+              className="text-3xl font-['Montserrat'] font-bold tracking-wider hover:opacity-90 transition-opacity duration-200"
             >
-              <span className="text-blue-600">RECIPE</span>
-              <span className="text-gray-800">SHARE</span>
+              <span className="text-gray-800">RECI</span>
+              <span className="text-blue-600">PIE</span>
             </Link>
           </div>
 
