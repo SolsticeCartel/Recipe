@@ -2,6 +2,15 @@
   command = "CI=false npm run build"
   publish = "build"
 
+[build.environment]
+  REACT_APP_FIREBASE_API_KEY = "AIzaSyBLNN0iuWU9XZ-YQq8CSvu5Vyo-Pv6UhMs"
+  REACT_APP_FIREBASE_AUTH_DOMAIN = "recipe-sharing-app-abf8e.firebaseapp.com"
+  REACT_APP_FIREBASE_PROJECT_ID = "recipe-sharing-app-abf8e"
+  REACT_APP_FIREBASE_STORAGE_BUCKET = "recipe-sharing-app-abf8e.appspot.com"
+  REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "658582866838"
+  REACT_APP_FIREBASE_APP_ID = "1:658582866838:web:abefb74413f04917be6bb7"
+  REACT_APP_IMGBB_API_KEY = "75dc1eb8ea0f4eee8bf5f6089acf5940"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
