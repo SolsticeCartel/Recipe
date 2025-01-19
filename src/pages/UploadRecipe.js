@@ -18,6 +18,8 @@ function UploadRecipe() {
     instructions: ['', '', '', '', '']
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   const validateForm = () => {
     if (formData.title.trim().length < 5) {
@@ -48,6 +50,7 @@ function UploadRecipe() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData({ ...formData, image: reader.result });
@@ -76,26 +79,35 @@ function UploadRecipe() {
     setFormData({ ...formData, instructions: [...formData.instructions, ''] });
   };
 
+  const handleImageUpload = async (file) => {
+    try {
+      if (!file) return null;
+      const imageUrl = await uploadToPlaybook(file);
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      showNotification('Failed to upload image. Please try again.');
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
-    if (!validateForm()) {
-      return;
-    }
-
+    setLoading(true);
+    
     try {
-      const imageFile = document.querySelector('input[type="file"]').files[0];
       let imageUrl = null;
-
       if (imageFile) {
-        try {
-          imageUrl = await uploadToPlaybook(imageFile);
-        } catch (uploadError) {
-          console.error('Image upload failed:', uploadError);
-          setError('Failed to upload image');
+        imageUrl = await handleImageUpload(imageFile);
+        if (!imageUrl) {
+          setLoading(false);
           return;
         }
+      }
+
+      if (!validateForm()) {
+        setLoading(false);
+        return;
       }
 
       const cleanedData = {
@@ -109,8 +121,11 @@ function UploadRecipe() {
       await addRecipe(cleanedData);
       showNotification("Yumm! Recipe uploaded successfully! 😋");
       navigate('/');
-    } catch (err) {
-      setError('Failed to upload recipe: ' + err.message);
+    } catch (error) {
+      console.error('Recipe upload error:', error);
+      showNotification('Failed to upload recipe');
+    } finally {
+      setLoading(false);
     }
   };
 

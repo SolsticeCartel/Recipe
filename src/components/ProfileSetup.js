@@ -75,22 +75,26 @@ function ProfileSetup() {
     setProfileData(prev => ({ ...prev, username: value }));
   };
 
+  const handleImageUpload = async (file) => {
+    try {
+      const imageUrl = await uploadToPlaybook(file);
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      showNotification('Failed to upload image. Please try again.');
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting || usernameError) return;
     setIsSubmitting(true);
-
+    
     try {
-      let photoURL = null;
-      
+      let photoURL = profileData.photoURL;
       if (imageFile) {
-        try {
-          console.log('Starting image upload...');
-          photoURL = await uploadToPlaybook(imageFile);
-          console.log('Got image URL:', photoURL);
-        } catch (uploadError) {
-          console.error('Image upload failed:', uploadError);
-          showNotification('Failed to upload image. Please try again.');
+        photoURL = await handleImageUpload(imageFile);
+        if (!photoURL) {
           setIsSubmitting(false);
           return;
         }
@@ -125,7 +129,7 @@ function ProfileSetup() {
 
     } catch (error) {
       console.error('Profile setup error:', error);
-      showNotification('Error setting up profile. Please try again.');
+      showNotification('Failed to complete profile setup');
     } finally {
       setIsSubmitting(false);
     }
