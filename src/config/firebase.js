@@ -11,12 +11,12 @@ console.log('Raw Environment Variables:', {
 });
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBLNN0iuWU9XZ-YQq8CSvu5Vyo-Pv6UhMs",
-  authDomain: "recipe-sharing-app-abf8e.firebaseapp.com",
-  projectId: "recipe-sharing-app-abf8e",
-  storageBucket: "recipe-sharing-app-abf8e.appspot.com",
-  messagingSenderId: "658582866838",
-  appId: "1:658582866838:web:abefb74413f04917be6bb7"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
