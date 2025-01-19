@@ -13,7 +13,6 @@ function ProfileSetup() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const { showNotification } = useNotification();
-  const signupUsername = localStorage.getItem('signupUsername');
   const [loading, setLoading] = useState(false);
   const [profileData, setProfileData] = useState({
     displayName: '',

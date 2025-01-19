@@ -13,10 +13,7 @@ import { useState } from 'react';
 import { NotificationProvider } from './context/NotificationContext';
 import EditRecipe from './pages/EditRecipe';
 
-console.log('App rendering');
-
 function App() {
-  console.log('Inside App component');
   const [error, setError] = useState(null);
 
   if (error) {
@@ -36,51 +33,46 @@ function App() {
     );
   }
 
-  try {
-    return (
-      <AuthProvider>
-        <NotificationProvider>
-          <RecipeProvider>
-            <Router>
-              <div className="min-h-screen bg-gray-100">
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route 
-                    path="/upload" 
-                    element={
-                      <ProtectedRoute>
-                        <UploadRecipe />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route path="/recipe/:id" element={<RecipeDetails />} />
-                  <Route 
-                    path="/profile" 
-                    element={
-                      <ProtectedRoute>
-                        <UserProfile />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route path="/recipe/edit/:id" element={
+  return (
+    <AuthProvider>
+      <NotificationProvider>
+        <RecipeProvider>
+          <Router>
+            <div className="min-h-screen bg-gray-100">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route 
+                  path="/upload" 
+                  element={
                     <ProtectedRoute>
-                      <EditRecipe />
+                      <UploadRecipe />
                     </ProtectedRoute>
-                  } />
-                </Routes>
-              </div>
-            </Router>
-          </RecipeProvider>
-        </NotificationProvider>
-      </AuthProvider>
-    );
-  } catch (err) {
-    setError(err);
-    return null;
-  }
+                  } 
+                />
+                <Route path="/recipe/:id" element={<RecipeDetails />} />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <UserProfile />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="/recipe/edit/:id" element={
+                  <ProtectedRoute>
+                    <EditRecipe />
+                  </ProtectedRoute>
+                } />
+              </Routes>
+            </div>
+          </Router>
+        </RecipeProvider>
+      </NotificationProvider>
+    </AuthProvider>
+  );
 }
 
 export default App; 

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [searchFilter, setSearchFilter] = useState('name'); // 'name' or 'ingredients'
   const { recipes, setSearchResults } = useRecipes();
   const navigate = useNavigate();
   const searchRef = useRef(null);
@@ -28,13 +27,7 @@ function SearchBar() {
     
     return recipes.filter(recipe => {
       const searchLower = searchTerm.toLowerCase();
-      if (searchFilter === 'name') {
-        return recipe.title.toLowerCase().includes(searchLower);
-      } else {
-        return recipe.ingredients.some(ingredient => 
-          ingredient.toLowerCase().includes(searchLower)
-        );
-      }
+      return recipe.title.toLowerCase().includes(searchLower);
     }).slice(0, 5); // Limit to 5 suggestions
   };
 
